@@ -45,11 +45,11 @@ if __name__ == '__main__':
 
     ## open dataset
     ds = xr.open_dataset(ff,decode_times=args.decode_times)
-    
+
     ## swap dimensions
     if args.swap is not None:
       ds = ds.swap_dims({args.swap[0]: args.swap[1]})
-    
+
     ## if no data variables, simply describe dataset
     if args.var is None:
       print(ds)
@@ -85,7 +85,7 @@ if __name__ == '__main__':
             print("------------------------")
             print(ds.coords[aaa[0]])
             quit()
-            
+
       ## (if applicable) get dimension reduction (index)
       if args.index is not None:
         for aaa in args.index: 
@@ -103,7 +103,7 @@ if __name__ == '__main__':
             print("------------------------")
             print(ds.coords[aaa[0]])
             quit()
-            
+
       ## (if applicable) compute mean
       ## NB: dsred = dsred.mean(args.mean) works directly with several coordinates
       ##     but we want to be able to handle errors for each coordinate
@@ -120,5 +120,6 @@ if __name__ == '__main__':
       ## plot
       dsred.plot()
       plt.show()
+
 
 
