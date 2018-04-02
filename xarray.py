@@ -30,6 +30,8 @@ if __name__ == '__main__':
     help='data variables [append possible]',action='append')
   parser.add_argument('-d', '--dim', metavar=('C','V'), type=str, nargs=2, \
     help='reduce coordinate C to value V [append possible]',action='append')
+  parser.add_argument('-i', '--index', metavar=('C','I'), type=str, nargs=2, \
+    help='reduce coordinate C to index I [append possible]',action='append')
   parser.add_argument('--decode_times', metavar='False/True', type=bool, default=False, \
     help='decode times axis in dataset [default is False]')
   parser.add_argument('-s', '--swap', metavar=('C','V'), type=str, nargs=2, \
@@ -78,6 +80,24 @@ if __name__ == '__main__':
             quit()
           except KeyError:
             print("Error: Value {0} not in file for dimension {1}".format(aaa[1],aaa[0]))
+            print("------------------------")
+            print(ds.coords[aaa[0]])
+            quit()
+            
+      ## (if applicable) get dimension reduction (index)
+      if args.index is not None:
+        for aaa in args.index: 
+          d = {}
+          d[aaa[0]] = int(aaa[1])
+          try:
+            dsred = dsred[d]
+          except ValueError:
+            print("Error: Dimension {0} not in file for data variable {1}".format(aaa[0],vv))
+            print("------------------------")
+            print(dsred.dims)
+            quit()
+          except IndexError:
+            print("Error: Index {0} not in file for dimension {1}".format(aaa[1],aaa[0]))
             print("------------------------")
             print(ds.coords[aaa[0]])
             quit()
