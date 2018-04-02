@@ -12,7 +12,7 @@ A. Spiga 02/04/2018
 -------
 example: dust climatologies on Mars
 http://www-mars.lmd.jussieu.fr/mars/dust_climatology/index.html
-(python) xray.py /home/aspiga/data/datadir/dust_MY29.nc -v cdod -d latitude 4.5 -d longitude 135.
+(python) xray.py /home/aspiga/data/datadir/dust_MY29.nc -v cdod -d latitude 4.5 -d longitude 135. -s Time Ls
 -------
 """
 
@@ -32,6 +32,8 @@ if __name__ == '__main__':
     help='reduce coordinate C to value V [append possible]',action='append')
   parser.add_argument('--decode_times', metavar='False/True', type=bool, default=False, \
     help='decode times axis in dataset [default is False]')
+  parser.add_argument('-s', '--swap', metavar=('C','V'), type=str, nargs=2, \
+    help='swap dimensions: V in place of C')
   args = parser.parse_args()
 
   ## loop on files
@@ -39,7 +41,11 @@ if __name__ == '__main__':
 
     ## open dataset
     ds = xr.open_dataset(ff,decode_times=args.decode_times)
-
+    
+    ## swap dimensions
+    if args.swap is not None:
+      ds = ds.swap_dims({args.swap[0]: args.swap[1]})
+    
     ## if no data variables, simply describe dataset
     if args.var is None:
       print(ds)
