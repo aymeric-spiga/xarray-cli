@@ -1,9 +1,9 @@
 #! /usr/bin/env python
 
 """
--------
-xray.py
--------
+-------------
+xarray-cli.py
+-------------
 A simple command line interface for xarray
 To be used for quick exploration of a Dataset
 Script with xarray if more elaborate stuff is needed
@@ -12,7 +12,7 @@ A. Spiga 02/04/2018
 -------
 example: dust climatologies on Mars
 http://www-mars.lmd.jussieu.fr/mars/dust_climatology/index.html
-(python) xray.py /home/aspiga/data/datadir/dust_MY29.nc -v cdod -d latitude 4.5 -d longitude 135. -s Time Ls
+(python) xarray-cli.py /home/aspiga/data/datadir/dust_MY29.nc -v cdod -d latitude 4.5 -d longitude 135. -s Time Ls
 -------
 """
 
